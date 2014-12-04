@@ -20,4 +20,6 @@ public class ChatMessage{
 	public boolean getDieResult(){
 		return this.dieResult;
 	}
+
+	
 }

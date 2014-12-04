@@ -16,4 +16,10 @@ public class ChatLog extends Observable{
 		setChanged();
 		notifyObservers(msg.getText());
 	}
+
+	public void debugDump(){
+		for(int i = 0; i < chatLog.size(); i++){
+			System.out.println(chatLog.get(i).getSenderName()+ ": "+ chatLog.get(i).getText() );
+		}
+	}
 }
