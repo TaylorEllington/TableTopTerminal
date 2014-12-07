@@ -4,8 +4,7 @@ import java.awt.event.*;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.awt.*;
 import javax.swing.*; 
 
@@ -43,60 +42,6 @@ public class GridBagLayoutDemo {
     GridLayout mapPanelGrid = new GridLayout(rows, cols);
     
     JPanel mapPanel = new JPanel(mapPanelGrid);
-    
-    for (int i = 0; i < rows; i++){
-    	for (int j = 0; j < cols; j++){
-    	
-    		MapTile tempPanel = new MapTile();
-    		tempPanel.setRow(i);
-    		tempPanel.setColumn(j);
-    		
-    		if ((i+j) % 2 == 0){
-    			
-    			tempPanel.setBackground(Color.CYAN);
-    			tempPanel.setColor("CYAN");
-    			
-    			//TEST CODE
-    			//System.out.println(tempPanel.getColor());
-    		}
-    		else{
-    		
-    			tempPanel.setBackground(Color.RED);
-    			tempPanel.setColor("RED");
-    		}
-    		
-    		tempPanel.addMouseListener(new MouseAdapter() {
-    			@Override
-    			public void mousePressed(MouseEvent e) {
-    				//clicks++;
-    				//text.setText(clicks + " Clicks");
-    				/*
-    				JPanel k = (JPanel) e.getSource();
-    				k.setBackground(Color.WHITE);
-    				k.setColor("WHITE");
-    				*/
-    				
-    				MapTile k = (MapTile) e.getSource();
-    				k.setBackground(Color.WHITE);
-    				k.setColor("WHITE");    				
-    				
-    				//TEST CODE
-    				System.out.print("Row: ");
-    				System.out.println(k.getRow());
-    				System.out.print("Column: ");
-    				System.out.println(k.getColumn());    				
-    				System.out.println(k.getColor());
-    			}
-    		});
-    	
-    		mapPanel.add(tempPanel);    		
-    	
-    	}
-    }
-    
-    
-    
-     /*
 
     for (int i = 0; i < (rows*cols); i++){
     	JPanel tempPanel = new JPanel();
@@ -120,8 +65,6 @@ public class GridBagLayoutDemo {
     	
     	mapPanel.add(tempPanel);
     }
-    
-    */
     
     mapPanel.setBackground(Color.CYAN);
     mapPanel.setPreferredSize(new Dimension(600, 360));
@@ -217,15 +160,6 @@ public class GridBagLayoutDemo {
     rollDieButton.setAlignmentX(Component.CENTER_ALIGNMENT); 
     rollDieButton.setPreferredSize(new Dimension(190, 230));
     
-    rollDieButton.addActionListener(new ActionListener() {
- 
-            public void actionPerformed(ActionEvent e)
-            {
-                //Execute when button is pressed
-                //ADD FUNCTIONALITY HERE
-            }
-        });      
-    
     rollDiePanel.setLayout(new BoxLayout(rollDiePanel, BoxLayout.PAGE_AXIS)); 
     rollDiePanel.add(Box.createVerticalGlue()); 
     rollDiePanel.add(rollDieButton);
@@ -245,15 +179,6 @@ public class GridBagLayoutDemo {
     
     JButton enterButton = new JButton("Enter");
     enterButton.setAlignmentX(Component.CENTER_ALIGNMENT); 
-    
-    enterButton.addActionListener(new ActionListener() {
- 
-            public void actionPerformed(ActionEvent e)
-            {
-                //Execute when button is pressed
-                //ADD FUNCTIONALITY HERE
-            }
-        });      
     
     enterPanel.setLayout(new BoxLayout(enterPanel, BoxLayout.PAGE_AXIS)); 
     enterPanel.add(Box.createVerticalGlue()); 
