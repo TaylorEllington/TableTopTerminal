@@ -16,6 +16,13 @@ public class InitObject {
     private int ipAddress;
     private boolean isServer;
     
+    public InitObject(){
+        setPort();
+        mapPath = "";
+        ipAddress = 0;
+        isServer = true;
+    }
+    
     
     public InitObject(int newPort, String newMapPath, int newIPAddress, boolean newIsServer){
         // need to fix this method
