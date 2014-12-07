@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javafx.scene.paint.Color;
 import javax.swing.*;
+import tabletopterminal.CreatePage;
 import tabletopterminal.InitObject;
 
 //package tabletopterminal;
@@ -49,6 +50,7 @@ public class Title extends JFrame{
         createButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 newObject.InitServer(WIDTH, null);
+                CreatePage newCreatePage = new CreatePage();
                 System.out.println("New server object created.");
             }
         });

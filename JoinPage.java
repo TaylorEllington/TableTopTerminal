@@ -11,6 +11,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,38 +24,39 @@ import javax.swing.SwingUtilities;
  *
  * @author nickmorris
  */
-public class JoinPage {
-    public static void main(String[] args){
-        SwingUtilities.invokeLater(new Runnable(){
-                public void run(){
-                    JFrame frame = new JFrame("Join a Game");
-                    JPanel panel = new JPanel();
-                    FlowLayout layout = new FlowLayout();
-                    JLabel titleLabel = new JLabel("Enter Correct IP Address");
-                    JLabel jsonLabel = new JLabel("IP Address");
-                    JTextField jsonTextField = new JTextField("IP Address");
-                    jsonTextField.setPreferredSize(new Dimension(300, 24));
-                    JButton joinButton = new JButton("Join Game");
-
-                    titleLabel.setFont(new Font("Arial", 2, 28));
-                    titleLabel.setHorizontalAlignment(JLabel.CENTER);                   
-
-                    panel.setLayout(layout);
-                    panel.setBackground(new java.awt.Color(122, 209, 237));
-
-
-                    frame.setSize(800, 600);
-                    frame.add(titleLabel, BorderLayout.NORTH);
-                    panel.add(jsonLabel);
-                    panel.add(jsonTextField);
-                    panel.add(joinButton);
-                    frame.add(panel);
-                    //frame.add(titleLabel, BorderLayout.NORTH);
-
-                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    frame.setVisible(true);
-                }
-
+public class JoinPage extends JFrame {
+    JPanel panel = new JPanel();
+    FlowLayout layout = new FlowLayout();
+    JLabel joinLabel = new JLabel("Enter Correct IP Address");
+    JLabel ipAddressLabel = new JLabel("IP Address");
+    JTextField ipAddressField = new JTextField("IP Address");
+    JButton joinButton = new JButton("Join Game");
+    public static void main(String[] args){ 
+        JoinPage joinPage = new JoinPage();
+    }
+    
+    public JoinPage(){
+        super("Join a Game");
+        setSize(800, 600);
+        ipAddressField.setPreferredSize(new Dimension(300, 24));
+        joinLabel.setFont(new Font("Arial", 2, 28));
+        joinLabel.setHorizontalAlignment(JLabel.CENTER);
+        panel.setLayout(layout);
+        panel.setBackground(new java.awt.Color(122, 209, 237));
+        
+        joinButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                System.out.println("BAMA");
+            }
         });
+        
+        add(joinLabel, BorderLayout.NORTH);
+        panel.add(ipAddressLabel);
+        panel.add(ipAddressField);
+        panel.add(joinButton);
+        add(panel);
+        
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
     }
 }
