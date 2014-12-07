@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package tabletopterminal;
+
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
