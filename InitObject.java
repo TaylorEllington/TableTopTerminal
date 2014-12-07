@@ -23,22 +23,9 @@ public class InitObject {
         isServer = true;
     }
     
-    
-    public InitObject(int newPort, String newMapPath, int newIPAddress, boolean newIsServer){
-        // need to fix this method
-        // requires user input from Title.java
-        // if isServer == true, call the InitServer method
-        // otherwise, call the InitClient method
-        if(isServer == true)
-            InitServer(newPort, newMapPath);
-        else
-            InitClient(newIPAddress);
-    }
-    
-    
     // constructor for Server
-    public void InitServer(int newPort, String newMapPath){
-        port = newPort;
+    public void InitServer(String newMapPath){
+        setPort();
         mapPath = newMapPath;
     }
     

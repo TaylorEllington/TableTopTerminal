@@ -29,41 +29,47 @@ public class CreatePage extends JFrame {
     JPanel panel = new JPanel();
     FlowLayout layout = new FlowLayout();
     JLabel titleLabel = new JLabel("Enter Map File Path");
-    JLabel jsonLabel = new JLabel("Map File Path");
-    JTextField jsonTextField = new JTextField("Map File");
+    JLabel mapPathLabel = new JLabel("Map File Path");
+    JTextField mapPathTextField = new JTextField("Map File");
     JButton startButton = new JButton("Create Game");
+    
+    InitObject newServer = new InitObject();
     
     
     public static void main(String[] args){
         CreatePage createPage = new CreatePage();
     }
     
-    public CreatePage(){
-        super("Create a Game");
+    public InitObject returnServer(){
         setSize(800,600);
         titleLabel.setFont(new Font("Arial", 2, 28));
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
-        jsonTextField.setPreferredSize(new Dimension(300, 24));
+        mapPathTextField.setPreferredSize(new Dimension(300, 24));
+        
+        // Since a server is a server is a server...return this as true.
+        newServer.setIsServer(true);
         
         
         panel.setLayout(layout);
         panel.setBackground(new java.awt.Color(122, 209, 237));
         
+        // We set the mapPath to the text inside the mapPathField
         startButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                
+                newServer.setMapPath(mapPathTextField.getText());
             }
         });
 
         setSize(800, 600);
         add(titleLabel, BorderLayout.NORTH);
-        panel.add(jsonLabel);
-        panel.add(jsonTextField);
+        panel.add(mapPathLabel);
+        panel.add(mapPathTextField);
         panel.add(startButton);
         add(panel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         
+        return newServer;
     }
 }

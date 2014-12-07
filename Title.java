@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import javax.swing.*;
 import tabletopterminal.CreatePage;
 import tabletopterminal.InitObject;
+import tabletopterminal.JoinPage;
 
 //package tabletopterminal;
 
@@ -24,15 +25,13 @@ import tabletopterminal.InitObject;
  * @author nickmorris
  */
 public class Title extends JFrame{
-    /*JFrame frame = new JFrame("Welcome to Table Top Terminal!");*/
-        JPanel panel = new JPanel();
-        FlowLayout layout = new FlowLayout();
-        JLabel titleLabel = new JLabel("Table Top Terminal");
-        JButton createButton = new JButton("Create Game");
-        JButton joinButton = new JButton("Join Game");
-        
-        
-        InitObject newObject = new InitObject();
+    JPanel panel = new JPanel();
+    FlowLayout layout = new FlowLayout();
+    JLabel titleLabel = new JLabel("Table Top Terminal");
+    JButton createButton = new JButton("Create Game");
+    JButton joinButton = new JButton("Join Game");
+    
+    InitObject newObject = new InitObject();
 
     public static void main( String [] args ) { 
         Title titleWindow = new Title("Welcome to Table Top Terminal!");
@@ -47,22 +46,21 @@ public class Title extends JFrame{
         createButton.setPreferredSize(new Dimension(100, 100));
         joinButton.setPreferredSize(new Dimension(100, 100));
         
+        //If user selects createButton, we link to the CreatePage
         createButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                newObject.InitServer(WIDTH, null);
                 CreatePage newCreatePage = new CreatePage();
-                System.out.println("New server object created.");
+                newObject = newCreatePage.returnServer();
             }
         });
         
+        //If user selects joinButton, we link to the JoinPage
         joinButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                newObject.InitClient(WIDTH);
-                System.out.println("New client object created.");
+                JoinPage newJoinPage = new JoinPage();
+                newObject = newJoinPage.returnClient();
             }
         });
-        
-        
         add(titleLabel, BorderLayout.NORTH);
         panel.setBackground(new java.awt.Color(122, 209, 237));
         panel.add(createButton);

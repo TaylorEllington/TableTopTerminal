@@ -31,22 +31,30 @@ public class JoinPage extends JFrame {
     JLabel ipAddressLabel = new JLabel("IP Address");
     JTextField ipAddressField = new JTextField("IP Address");
     JButton joinButton = new JButton("Join Game");
+    
+    InitObject newClient = new InitObject();
+    
     public static void main(String[] args){ 
         JoinPage joinPage = new JoinPage();
     }
     
-    public JoinPage(){
-        super("Join a Game");
+    public InitObject returnClient(){
         setSize(800, 600);
         ipAddressField.setPreferredSize(new Dimension(300, 24));
         joinLabel.setFont(new Font("Arial", 2, 28));
         joinLabel.setHorizontalAlignment(JLabel.CENTER);
+        
+        // Since a client isn't a server, we set this boolean to false.
+        newClient.setIsServer(false);
+        
         panel.setLayout(layout);
         panel.setBackground(new java.awt.Color(122, 209, 237));
         
+        // We set the IP address to the value of the text field
         joinButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                System.out.println("BAMA");
+                int address = Integer.parseInt(ipAddressField.getText());
+                newClient.setIPAddress(address);
             }
         });
         
@@ -58,5 +66,7 @@ public class JoinPage extends JFrame {
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        
+        return newClient;
     }
 }
