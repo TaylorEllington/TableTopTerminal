@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import javafx.scene.paint.Color;
 import javax.swing.*;
 
 //package tabletopterminal;
@@ -39,6 +40,7 @@ public class Title {
                 
                 panel.setLayout(layout);
                 
+                panel.setBackground(new java.awt.Color(122, 209, 237));
                 
                 frame.setSize(800, 600);
                 frame.add(titleLabel, BorderLayout.NORTH);

@@ -7,6 +7,7 @@
 package tabletopterminal;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -29,26 +30,26 @@ public class CreatePage {
                     JFrame frame = new JFrame("Create a Game");
                     JPanel panel = new JPanel();
                     FlowLayout layout = new FlowLayout();
-                    JLabel titleLabel = new JLabel("Enter File Path for JSON");
-                    JLabel jsonLabel = new JLabel("JSON Path");
-                    JTextField jsonTextField = new JTextField("JSON Path");
+                    JLabel titleLabel = new JLabel("Enter Map File Path");
+                    JLabel jsonLabel = new JLabel("Map File Path");
+                    JTextField jsonTextField = new JTextField("Map File");
+                    JButton startButton = new JButton("Create Game");
                     jsonTextField.setPreferredSize(new Dimension(300, 24));
+                    
 
                     titleLabel.setFont(new Font("Arial", 2, 28));
                     titleLabel.setHorizontalAlignment(JLabel.CENTER);
 
-                    //createButton.setPreferredSize(new Dimension(100, 100));
-                    //joinButton.setPreferredSize(new Dimension(100, 100));
-
                     panel.setLayout(layout);
+                    panel.setBackground(new java.awt.Color(122, 209, 237));
 
 
                     frame.setSize(800, 600);
                     frame.add(titleLabel, BorderLayout.NORTH);
                     panel.add(jsonLabel);
                     panel.add(jsonTextField);
+                    panel.add(startButton);
                     frame.add(panel);
-                    //frame.add(titleLabel, BorderLayout.NORTH);
 
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     frame.setVisible(true);

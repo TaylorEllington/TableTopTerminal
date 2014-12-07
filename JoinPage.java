@@ -36,12 +36,10 @@ public class JoinPage {
                     JButton joinButton = new JButton("Join Game");
 
                     titleLabel.setFont(new Font("Arial", 2, 28));
-                    titleLabel.setHorizontalAlignment(JLabel.CENTER);
-
-                    //createButton.setPreferredSize(new Dimension(100, 100));
-                    //joinButton.setPreferredSize(new Dimension(100, 100));
+                    titleLabel.setHorizontalAlignment(JLabel.CENTER);                   
 
                     panel.setLayout(layout);
+                    panel.setBackground(new java.awt.Color(122, 209, 237));
 
 
                     frame.setSize(800, 600);
