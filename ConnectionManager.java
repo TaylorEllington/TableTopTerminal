@@ -50,5 +50,33 @@ public class ConnectionManager{
 
 	}
 
+	public void sendChatMessage(String text){
+
+		String message = "chat|" + text;
+
+		if( clientrunnable != null){
+			clientrunnable.setMessage(message);
+		}else if(serverrunnable != null){
+			serverrunnable.broadcastToAllClients(message);
+		}else{
+			System.out.println("ConnectionManager.send() - this should not happen");
+		}
+
+	}
+
+	public void sendPlayerCoordinates(String playerName, int x, int y){
+
+		String message = "coord|" + playerName+ "|" + x + "|" + y;
+
+		if( clientrunnable != null){
+			clientrunnable.setMessage(message);
+		}else if(serverrunnable != null){
+			serverrunnable.broadcastToAllClients(message);
+		}else{
+			System.out.println("ConnectionManager.send() - this should not happen");
+		}
+
+	}
+
 
 }

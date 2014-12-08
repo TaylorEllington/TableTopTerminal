@@ -8,14 +8,36 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.*;
 import javax.swing.*; 
+import java.util.Observable;
+import java.util.Observer;
 
-public class GridBagLayoutDemo {
+
+public class GridBagLayoutDemo   implements Observer{
   final static boolean shouldFill = true;
   final static boolean shouldWeightX = true;
   final static boolean RIGHT_TO_LEFT = false;
 
+  ConnectionManager connections;
 
-  public static void addComponentsToPane(Container pane) {
+  public GridBagLayoutDemo(ChatLog chat, ConnectionManager connections){
+    this.connections = connections;
+
+    javax.swing.SwingUtilities.invokeLater(new Runnable() {
+      public void run() {
+        createAndShowGUI();
+      }
+    });
+
+  }
+
+  public void update(Observable o, Object arg){
+
+  }
+
+
+
+
+  public  void addComponentsToPane(Container pane) {
     if (RIGHT_TO_LEFT) {
       pane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
     }
@@ -250,8 +272,10 @@ public class GridBagLayoutDemo {
  
             public void actionPerformed(ActionEvent e)
             {
-                //Execute when button is pressed
-                //ADD FUNCTIONALITY HERE
+                System.out.println(textField.getText());
+                chatBoxTextPane.setText(chatBoxTextPane.getText() + "\n" + textField.getText() );
+                connections.sendChatMessage(textField.getText());
+
             }
         });      
     
@@ -267,7 +291,7 @@ public class GridBagLayoutDemo {
    * Create the GUI and show it. For thread safety, this method should be
    * invoked from the event-dispatching thread.
    */
-  private static void createAndShowGUI() {
+  private void createAndShowGUI() {
     // Create and set up the window.
     JFrame frame = new JFrame("GridBagLayoutDemo");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -280,7 +304,7 @@ public class GridBagLayoutDemo {
     frame.pack();
     frame.setVisible(true);
   }
-
+  /*
   public static void main(String[] args) {
     // Schedule a job for the event-dispatching thread:
     // creating and showing this application's GUI.
@@ -290,6 +314,7 @@ public class GridBagLayoutDemo {
       }
     });
   }
+  */
   
 
 }
