@@ -10,6 +10,9 @@ import java.awt.*;
 import javax.swing.*; 
 import java.util.Observable;
 import java.util.Observer;
+import java.awt.BorderLayout;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 
 public class GridBagLayoutDemo   implements Observer{
@@ -68,8 +71,10 @@ public class GridBagLayoutDemo   implements Observer{
     
     for (int i = 0; i < rows; i++){
     	for (int j = 0; j < cols; j++){
-    	
+    	   Border thinBorder = LineBorder.createBlackLineBorder();
+
     		MapTile tempPanel = new MapTile();
+            tempPanel.setBorder(thinBorder);
     		tempPanel.setRow(i);
     		tempPanel.setColumn(j);
     		

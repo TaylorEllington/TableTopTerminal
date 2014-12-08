@@ -20,7 +20,7 @@ public class ServerSocketConnectionRunnable implements Runnable{
 		
 
 		try{
-			this.connectionToClient.setSoTimeout(1000);
+			this.connectionToClient.setSoTimeout(10);
 			out = new PrintWriter(connectionToClient.getOutputStream(), true);
 			in = new BufferedReader( new InputStreamReader( connectionToClient.getInputStream() ) );
 		} catch ( IOException e){
