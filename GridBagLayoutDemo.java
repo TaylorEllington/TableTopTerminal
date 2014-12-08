@@ -13,6 +13,7 @@ import java.util.Observer;
 import java.awt.BorderLayout;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+import java.util.ArrayList;
 
 
 public class GridBagLayoutDemo   implements Observer{
@@ -20,10 +21,19 @@ public class GridBagLayoutDemo   implements Observer{
   final static boolean shouldWeightX = true;
   final static boolean RIGHT_TO_LEFT = false;
 
-  ConnectionManager connections;
+  static JPanel[][] map;
 
-  public GridBagLayoutDemo(ChatLog chat, ConnectionManager connections){
+  static JEditorPane chatBoxTextPane;
+  static ArrayList<Player> playerlist;
+  static ConnectionManager connections;
+  String name;
+  
+
+  public GridBagLayoutDemo( ConnectionManager connections, String pname, Players players){
+    name = pname;
     this.connections = connections;
+    
+    playerlist = new ArrayList<Player>();
 
     javax.swing.SwingUtilities.invokeLater(new Runnable() {
       public void run() {
@@ -32,8 +42,48 @@ public class GridBagLayoutDemo   implements Observer{
     });
 
   }
+  public static void updateChat(String name, String text){
+    System.out.println(name +"----" +text);
+    chatBoxTextPane.setText(chatBoxTextPane.getText() + "\n" + name + ": " + text);
+    connections.serverEchoChatMessage(text, name);
+  }
+
+  public static void updatePlayer(String name, int x, int y){
+    boolean found = false;
+    //search playerlist for name
+    for(int i =0 ; i < playerlist.size(); i++ ){
+        //if found move
+        if(playerlist.get(i).playerName.equals(name) ){
+            map[playerlist.get(i).getCurrentX()][playerlist.get(i).getCurrentY()].setBackground(Color.WHITE);
+            map[x][y].setBackground(Color.BLACK);
+            playerlist.get(i).setCurrentX(x);
+            playerlist.get(i).setCurrentY(y);
+            found = true;
+
+        }
+    }
+        
+        //if not found create and place;
+        if(!found){
+            Player temp = new Player();
+            temp.setCurrentY(y);
+            temp.setCurrentX(x);
+            map[x][y].setBackground(Color.BLACK);
+            temp.playerName = name;
+            playerlist.add(temp);
+        }
+        connections.serverEchoPlayerCoord(name, x, y);
+    
+  }
+  public static void updateDieRoll(String name, String text){
+    
+    }
 
   public void update(Observable o, Object arg){
+    //THIS ISNT WORKING!!!!
+    if(o instanceof ChatLog){
+
+    }
 
   }
 
@@ -59,6 +109,8 @@ public class GridBagLayoutDemo   implements Observer{
     
     int rows = 9;
     int cols = 9;
+
+    map = new JPanel[cols][rows];
     
     c.gridx = 0;
     c.gridy = 0;
@@ -77,19 +129,20 @@ public class GridBagLayoutDemo   implements Observer{
             tempPanel.setBorder(thinBorder);
     		tempPanel.setRow(i);
     		tempPanel.setColumn(j);
+            map[j][i] = tempPanel;
     		
     		if ((i+j) % 2 == 0){
     			
-    			tempPanel.setBackground(Color.CYAN);
-    			tempPanel.setColor("CYAN");
+    			//tempPanel.setBackground(Color.CYAN);
+    			//tempPanel.setColor("CYAN");
     			
     			//TEST CODE
     			//System.out.println(tempPanel.getColor());
     		}
     		else{
     		
-    			tempPanel.setBackground(Color.RED);
-    			tempPanel.setColor("RED");
+    			//tempPanel.setBackground(Color.RED);
+    			//tempPanel.setColor("RED");
     		}
     		
     		tempPanel.addMouseListener(new MouseAdapter() {
@@ -104,15 +157,18 @@ public class GridBagLayoutDemo   implements Observer{
     				*/
     				
     				MapTile k = (MapTile) e.getSource();
-    				k.setBackground(Color.WHITE);
-    				k.setColor("WHITE");    				
+    				k.setBackground(Color.BLACK);
+    				//k.setColor("WHITE");    				
     				
     				//TEST CODE
-    				System.out.print("Row: ");
-    				System.out.println(k.getRow());
-    				System.out.print("Column: ");
-    				System.out.println(k.getColumn());    				
-    				System.out.println(k.getColor());
+    				//System.out.print("Row: ");
+    				//System.out.println();
+    				//System.out.print("Column: ");
+    				//System.out.println();    				
+    				//System.out.println(k.getColor());
+                    updatePlayer(name, k.getColumn(), k.getRow() );
+                    connections.sendPlayerCoordinates(name, k.getColumn(), k.getRow());
+
     			}
     		});
     	
@@ -192,7 +248,7 @@ public class GridBagLayoutDemo   implements Observer{
     c.gridwidth = 3;
     c.gridheight = 1;
     
-    JEditorPane chatBoxTextPane = new JEditorPane();
+     chatBoxTextPane = new JEditorPane();
     chatBoxTextPane.setPreferredSize(new Dimension(590, 110));
     chatBoxPanel.add(chatBoxTextPane);
     
@@ -279,7 +335,7 @@ public class GridBagLayoutDemo   implements Observer{
             {
                 System.out.println(textField.getText());
                 chatBoxTextPane.setText(chatBoxTextPane.getText() + "\n" + textField.getText() );
-                connections.sendChatMessage(textField.getText());
+                connections.sendChatMessage(textField.getText(), name);
 
             }
         });      

@@ -14,8 +14,12 @@ public class ClientRunnable implements Runnable{
 
 	PrintWriter out;
 	BufferedReader in;
+	ChatLog chat;
+	Players players;
 
-	ClientRunnable(String address, int port){
+	ClientRunnable(String address, int port, ChatLog chat, Players players){
+		this.chat = chat;
+		this.players = players;
 
 		try{
 			//create socket
@@ -48,7 +52,8 @@ public class ClientRunnable implements Runnable{
 						System.out.println("null yall");
 					}else{
 						//Debug, will be changed later
-						System.out.println(temp);
+						parseInput(temp);
+						
 						temp = "";
 					}
 				    
@@ -80,6 +85,27 @@ public class ClientRunnable implements Runnable{
 
 	public void closeConnection(){
 		Thread.currentThread().interrupt();
+	}
+
+
+	public void parseInput(String message){
+		
+		String[] components = message.split("\\|");
+
+		if(components[0].equals("roll") ){
+			// if we get to this - ROLL DIE
+		}else if (components[0].equals("chat")){
+			GridBagLayoutDemo.updateChat(components[1], components[2]);
+			
+		}else if(components[0].equals("cord")){
+			GridBagLayoutDemo.updatePlayer(components[1], Integer.parseInt(components[2]), Integer.parseInt(components[3]) );
+		}else{
+			System.out.println(components[0]);
+		}
+
+
+
+
 	}
 
 	

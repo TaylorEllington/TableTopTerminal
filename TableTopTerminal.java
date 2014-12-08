@@ -13,41 +13,36 @@ import java.util.Scanner;
 
 public class TableTopTerminal{
         InitObject tempObject = new InitObject();
+
+        public static ChatLog chat;
+        public static Players players;
+
+
 	public static void main( String [] args){
 		//NICK - have your code start here, i need a filled initObject so i can start the connection manager from here
         // InitObject tempObject = new InitObject();
         //Title titleScreen = new Title();
+
+        chat = new ChatLog();
+		players = new Players();
+
+		ConnectionManager manager = new ConnectionManager(chat, players);
+		
+        String name = args[0];
+        String mode = args[1];
+        String ip = null;
+        if(mode.equals("client") ){
+        	ip = args[2];
+        	manager.startClient(ip, 2112);
+        }else{
+        	manager.startServer(2112);
+        }
+         
                 
-
+	
 		
-		System.out.println("pickMode- client(0) or server(1)");
-		
-		Scanner reader = new Scanner(System.in);
-		String temp = "empty";
-		int status = reader.nextInt();
-		ChatLog chat = new ChatLog();
-
-		ConnectionManager manager = new ConnectionManager(chat);
-		boolean loopVar = true;
-
-		if(status == 0){
-			manager.startClient("127.0.0.1", 2112);
-
-			
-
-		}else if( status == 1){
-			manager.startServer(2112);
-			while (true){
-				
-				temp = reader.nextLine();
-				manager.send(temp);
-				
-				}
-			
-		}
-		
-		
-		GridBagLayoutDemo UI = new GridBagLayoutDemo(chat , manager);
+		GridBagLayoutDemo UI = new GridBagLayoutDemo( manager, name , players);
+		chat.addObserver(UI);
 	
 
 

@@ -13,10 +13,14 @@ public class ServerSocketConnectionRunnable implements Runnable{
 	BufferedReader in;
 	String outGoingMessage;
 	boolean keepRunning;
+	ChatLog chat;
+	Players players;
 
-	ServerSocketConnectionRunnable(Socket sock){
+	ServerSocketConnectionRunnable(Socket sock, ChatLog chat, Players players){
 		this.connectionToClient = sock;
 		outGoingMessage = "";
+		this.chat = chat;
+		this.players = players;
 		
 
 		try{
@@ -52,7 +56,8 @@ public class ServerSocketConnectionRunnable implements Runnable{
 							System.out.println("null yall");
 						}else{
 							//Debug, will be changed later
-							System.out.println(temp);
+							
+							parseInput(temp);
 							temp = "";
 						}
 
@@ -81,6 +86,28 @@ public class ServerSocketConnectionRunnable implements Runnable{
 
 		}
 		keepRunning = false;
+	}
+
+
+
+	public void parseInput(String message){
+		
+		String[] components = message.split("\\|");
+
+		if(components[0].equals("roll") ){
+			// if we get to this - ROLL DIE
+		}else if (components[0].equals("chat")){
+			GridBagLayoutDemo.updateChat(components[1], components[2]);
+			
+		}else if(components[0].equals("cord")){
+			GridBagLayoutDemo.updatePlayer(components[1], Integer.parseInt(components[2]), Integer.parseInt(components[3]) );
+		}else{
+			System.out.println(components[0]);
+		}
+
+
+
+
 	}
 
 

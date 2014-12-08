@@ -15,6 +15,7 @@ public class ChatLog extends Observable{
 		chatLog.add(msg);
 		setChanged();
 		notifyObservers(msg.getText());
+		System.out.println("TEST");
 	}
 
 	public void debugDump(){
@@ -22,4 +23,9 @@ public class ChatLog extends Observable{
 			System.out.println(chatLog.get(i).getSenderName()+ ": "+ chatLog.get(i).getText() );
 		}
 	}
+
+	    @Override
+    public boolean hasChanged() {
+        return true; //super.hasChanged();
+    }
 }

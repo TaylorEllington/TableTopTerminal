@@ -13,8 +13,13 @@ public class ServerRunnable implements Runnable{
 	ServerSocket serversocket;
 	ArrayList<ServerSocketConnectionRunnable> connections;
 	boolean keepRunning;
+	ChatLog chat;
+	Players players;
 
-	ServerRunnable( int port){
+	ServerRunnable( int port, ChatLog chat, Players players){
+		this.chat = chat;
+		this.players = players;
+
 		//create server socket
 		try{
 
@@ -37,7 +42,7 @@ public class ServerRunnable implements Runnable{
 				temp = serversocket.accept();
 				//when a connection occurs create a serversocketconnection thread
 					if(temp != null){
-						ServerSocketConnectionRunnable newConnection = new ServerSocketConnectionRunnable(temp);
+						ServerSocketConnectionRunnable newConnection = new ServerSocketConnectionRunnable(temp, chat, players);
 						connections.add(newConnection);
 						Thread go = new Thread( newConnection );
 						go.start();
