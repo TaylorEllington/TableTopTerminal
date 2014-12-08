@@ -15,13 +15,16 @@ import java.awt.event.ActionListener;
 import javafx.scene.paint.Color;
 import javax.swing.*;
 
+
 //package tabletopterminal;
 
 /**
  *
  * @author nickmorris
  */
-public class Title extends JFrame{
+public class Title extends JFrame implements ActionListener{
+    CreatePage newCreatePage;
+    JoinPage newJoinPage;
     JPanel panel = new JPanel();
     FlowLayout layout = new FlowLayout();
     JLabel titleLabel = new JLabel("Table Top Terminal");
@@ -31,33 +34,24 @@ public class Title extends JFrame{
     InitObject newObject = new InitObject();
 
     public static void main( String [] args ) { 
-        Title titleWindow = new Title("Welcome to Table Top Terminal!");
+        Title titleWindow = new Title();
+        // need to check which action performed
+        
+        
         
     }
     
-    public Title(String title){
-        super(title);
+    public Title(){
+        //super(title);
         setSize(800,600);
         titleLabel.setFont(new Font("Arial", 2, 28));
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
         createButton.setPreferredSize(new Dimension(100, 100));
         joinButton.setPreferredSize(new Dimension(100, 100));
         
-        //If user selects createButton, we link to the CreatePage
-        createButton.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                CreatePage newCreatePage = new CreatePage();
-                newObject = newCreatePage.returnServer();
-            }
-        });
+        createButton.addActionListener(this);
+        joinButton.addActionListener(this);
         
-        //If user selects joinButton, we link to the JoinPage
-        joinButton.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                JoinPage newJoinPage = new JoinPage();
-                newObject = newJoinPage.returnClient();
-            }
-        });
         add(titleLabel, BorderLayout.NORTH);
         panel.setBackground(new java.awt.Color(122, 209, 237));
         panel.add(createButton);
@@ -66,5 +60,28 @@ public class Title extends JFrame{
         panel.setLayout(layout);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+    }
+   
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object source = e.getSource();
+        if(source == createButton){
+            newObject.setIsServer(true);
+            newCreatePage = new CreatePage();
+        }
+        
+        if(source == joinButton){
+            newObject.setIsServer(false);
+            newJoinPage = new JoinPage();
+        }
+    }
+    
+    public InitObject getServerOrClientObject(){
+        if(newObject.getIsServer() == true)
+            newObject = newCreatePage.sendServerObjectToTableTopTerminal();
+        else
+            newObject = newJoinPage.sendClientObjectToTableTopTerminal();
+        return newObject;
     }
 }

@@ -5,7 +5,6 @@
  */
 
 
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -24,7 +23,7 @@ import javax.swing.SwingUtilities;
  *
  * @author nickmorris
  */
-public class JoinPage extends JFrame {
+public class JoinPage extends JFrame implements ActionListener{
     JPanel panel = new JPanel();
     FlowLayout layout = new FlowLayout();
     JLabel joinLabel = new JLabel("Enter Correct IP Address");
@@ -38,7 +37,7 @@ public class JoinPage extends JFrame {
         JoinPage joinPage = new JoinPage();
     }
     
-    public InitObject returnClient(){
+    public void JoinPage(){
         setSize(800, 600);
         ipAddressField.setPreferredSize(new Dimension(300, 24));
         joinLabel.setFont(new Font("Arial", 2, 28));
@@ -47,17 +46,12 @@ public class JoinPage extends JFrame {
         // Since a client isn't a server, we set this boolean to false.
         newClient.setIsServer(false);
         
+        joinButton.addActionListener(this);
+        
         panel.setLayout(layout);
         panel.setBackground(new java.awt.Color(122, 209, 237));
         
         // We set the IP address to the value of the text field
-        joinButton.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                int address = Integer.parseInt(ipAddressField.getText());
-                newClient.setIPAddress(address);
-            }
-        });
-        
         add(joinLabel, BorderLayout.NORTH);
         panel.add(ipAddressLabel);
         panel.add(ipAddressField);
@@ -66,7 +60,27 @@ public class JoinPage extends JFrame {
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+
         
+        //return newClient;
+    }
+    
+    
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+       Object source = e.getSource();
+       if(source == joinButton){
+           int address = Integer.parseInt(ipAddressField.getText());
+           newClient.setIPAddress(address);
+       }
+    }
+    
+    public InitObject sendClientObjectToTableTopTerminal(){
+        System.out.println(newClient.getIsServer());
+        System.out.println(newClient.getIPAddress());
+        System.out.println(newClient.getMapPath());
+        System.out.println(newClient.getPort());
         return newClient;
     }
 }

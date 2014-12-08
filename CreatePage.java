@@ -25,7 +25,7 @@ import javax.swing.SwingUtilities;
  *
  * @author nickmorris
  */
-public class CreatePage extends JFrame {
+public class CreatePage extends JFrame implements ActionListener {
     JPanel panel = new JPanel();
     FlowLayout layout = new FlowLayout();
     JLabel titleLabel = new JLabel("Enter Map File Path");
@@ -40,7 +40,7 @@ public class CreatePage extends JFrame {
         CreatePage createPage = new CreatePage();
     }
     
-    public InitObject returnServer(){
+    public CreatePage(){
         setSize(800,600);
         titleLabel.setFont(new Font("Arial", 2, 28));
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -49,16 +49,11 @@ public class CreatePage extends JFrame {
         // Since a server is a server is a server...return this as true.
         newServer.setIsServer(true);
         
+        startButton.addActionListener(this);
+        
         
         panel.setLayout(layout);
         panel.setBackground(new java.awt.Color(122, 209, 237));
-        
-        // We set the mapPath to the text inside the mapPathField
-        startButton.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                newServer.setMapPath(mapPathTextField.getText());
-            }
-        });
 
         setSize(800, 600);
         add(titleLabel, BorderLayout.NORTH);
@@ -69,7 +64,23 @@ public class CreatePage extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e){
+        Object source = e.getSource();
         
+        if(source == startButton){
+            newServer.setMapPath(mapPathTextField.getText());
+        }
+    }
+    
+    public InitObject sendServerObjectToTableTopTerminal(){
+        System.out.println(newServer.getIsServer());
+        System.out.println(newServer.getIPAddress());
+        System.out.println(newServer.getMapPath());
+        System.out.println(newServer.getPort());
         return newServer;
     }
 }
