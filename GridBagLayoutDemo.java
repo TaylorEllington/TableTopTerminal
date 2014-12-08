@@ -14,7 +14,8 @@ import java.awt.BorderLayout;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.util.ArrayList;
-
+import javax.swing.text.html.HTMLEditorKit;
+import java.util.Random;
 
 public class GridBagLayoutDemo   implements Observer{
   final static boolean shouldFill = true;
@@ -78,13 +79,21 @@ public class GridBagLayoutDemo   implements Observer{
             temp.setCurrentX(x);
             map[x][y].setBackground(colorArray[playerlist.size()]);
             temp.playerName = name;
-            mapKeyTextPane.setText(mapKeyTextPane.getText() + "<font color = \""+htmlColorArray[playerlist.size()] +"\">" + name +" </font>\n");
+            mapKeyTextPane.setText(mapKeyTextPane.getText() +htmlColorArray[playerlist.size()] +"--" + name +"\n");
             playerlist.add(temp);
         }
         connections.serverEchoPlayerCoord(name, x, y);
     
   }
-  public static void updateDieRoll(String name, String text){
+  public static void updateDieRoll(String nname, int number){
+
+    String message =nname + " rolled a : " + number+ "!\n"  ;
+
+    if(!nname.equals(name)){
+        chatBoxTextPane.setText(chatBoxTextPane.getText()  + message);
+        connections.serverEchoDieRoll(nname, number);
+    }
+
     
     }
 
@@ -315,6 +324,11 @@ public class GridBagLayoutDemo   implements Observer{
             {
                 //Execute when button is pressed
                 //ADD FUNCTIONALITY HERE
+                    Random rand = new Random();
+                    int randomNum = rand.nextInt(21);
+                    connections.sendRoll(name, randomNum);
+                    String message =name + " rolled a : " + randomNum+ "!\n"  ;
+                    chatBoxTextPane.setText(chatBoxTextPane.getText() + message);
             }
         });      
     

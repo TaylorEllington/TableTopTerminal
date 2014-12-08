@@ -95,7 +95,7 @@ public class ServerSocketConnectionRunnable implements Runnable{
 		String[] components = message.split("\\|");
 
 		if(components[0].equals("roll") ){
-			// if we get to this - ROLL DIE
+			GridBagLayoutDemo.updateDieRoll(components[1], Integer.parseInt(components[2]));
 		}else if (components[0].equals("chat")){
 			GridBagLayoutDemo.updateChat(components[1], components[2]);
 			

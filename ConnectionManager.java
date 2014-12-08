@@ -78,9 +78,9 @@ public class ConnectionManager{
 
 	}
 
-	public void sendPlayerCoordinates(String playerName, int value){
+	public void sendRoll(String playerName, int value){
 
-		String message = "roll|" + playerName+ "rolled a " + value;
+		String message = "roll|" + playerName+ "|" + value;
 
 		if( clientrunnable != null){
 			clientrunnable.setMessage(message);
@@ -101,6 +101,15 @@ public class ConnectionManager{
 	public void serverEchoPlayerCoord(String playerName, int x, int y){
 
 		String message = "cord|" + playerName+ "|" + x + "|" + y;
+
+		if(serverrunnable != null){
+			serverrunnable.broadcastToAllClients(message);
+		}
+	}
+
+	public void serverEchoDieRoll(String playerName, int number){
+
+		String message = "roll|" + playerName+ "|" + number;
 
 		if(serverrunnable != null){
 			serverrunnable.broadcastToAllClients(message);
