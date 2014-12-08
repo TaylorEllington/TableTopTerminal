@@ -26,7 +26,7 @@ public class GridBagLayoutDemo   implements Observer{
   static JEditorPane chatBoxTextPane;
   static ArrayList<Player> playerlist;
   static ConnectionManager connections;
-  String name;
+  static String name;
   
 
   public GridBagLayoutDemo( ConnectionManager connections, String pname, Players players){
@@ -42,10 +42,11 @@ public class GridBagLayoutDemo   implements Observer{
     });
 
   }
-  public static void updateChat(String name, String text){
-    System.out.println(name +"----" +text);
-    chatBoxTextPane.setText(chatBoxTextPane.getText() + "\n" + name + ": " + text);
-    connections.serverEchoChatMessage(text, name);
+  public static void updateChat(String nname, String text){
+    if(!nname.equals(name)){
+    chatBoxTextPane.setText(chatBoxTextPane.getText() + "\n" + nname + ": " + text);
+    connections.serverEchoChatMessage(text, nname);
+}
   }
 
   public static void updatePlayer(String name, int x, int y){
@@ -333,8 +334,9 @@ public class GridBagLayoutDemo   implements Observer{
  
             public void actionPerformed(ActionEvent e)
             {
+
                 System.out.println(textField.getText());
-                chatBoxTextPane.setText(chatBoxTextPane.getText() + "\n" + textField.getText() );
+                chatBoxTextPane.setText(chatBoxTextPane.getText() + "\n" + name+": " + textField.getText() );
                 connections.sendChatMessage(textField.getText(), name);
 
             }
@@ -354,7 +356,7 @@ public class GridBagLayoutDemo   implements Observer{
    */
   private void createAndShowGUI() {
     // Create and set up the window.
-    JFrame frame = new JFrame("GridBagLayoutDemo");
+    JFrame frame = new JFrame("TableTopTerminal");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.setResizable(false);
 
