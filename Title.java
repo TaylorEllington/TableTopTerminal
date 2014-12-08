@@ -14,9 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javafx.scene.paint.Color;
 import javax.swing.*;
-import tabletopterminal.CreatePage;
-import tabletopterminal.InitObject;
-import tabletopterminal.JoinPage;
 
 //package tabletopterminal;
 

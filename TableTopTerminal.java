@@ -12,6 +12,13 @@ import java.net.ServerSocket;
 
 public class TableTopTerminal{
 	public static void main( String [] args){
+		//NICK - have your code start here, i need a filled initObject so i can start the connection manager from here
+
+
+
+
+		/*
+		DEBUG CODE/ FAIL SAFE
 		System.out.println("pickMode- client(0) or server(1)");
 		
 		Scanner reader = new Scanner(System.in);
@@ -53,16 +60,7 @@ public class TableTopTerminal{
 		System.out.println("DEBUG - END  LOOPS ");
 		manager.closeConnection();
 
-
-
-
+		*/
 		
-		
-		
-
-
-		
-
-
 	}
 }
