@@ -91,7 +91,7 @@ public class GridBagLayoutDemo   implements Observer{
   }
   public static void updateDieRoll(String nname, int number){
 
-    String message =nname + " rolled a : " + number+ "!\n"  ;
+    String message =nname + " rolled a : " + number+ "\n"  ;
 
     if(!nname.equals(name)){
         chatBoxTextPane.setText(chatBoxTextPane.getText()  + message);
@@ -331,7 +331,7 @@ public class GridBagLayoutDemo   implements Observer{
                     Random rand = new Random();
                     int randomNum = rand.nextInt(21);
                     connections.sendRoll(name, randomNum);
-                    String message =name + " rolled a : " + randomNum+ "!\n"  ;
+                    String message =name + " rolled a : " + randomNum+ "\n"  ;
                     chatBoxTextPane.setText(chatBoxTextPane.getText() + message);
             }
         });      
