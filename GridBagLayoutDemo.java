@@ -76,6 +76,10 @@ public class GridBagLayoutDemo   implements Observer{
         if(!found){
             Player temp = new Player();
             temp.setCurrentY(y);
+
+
+
+
             temp.setCurrentX(x);
             map[x][y].setBackground(colorArray[playerlist.size()]);
             temp.playerName = name;
@@ -125,8 +129,8 @@ public class GridBagLayoutDemo   implements Observer{
       c.fill = GridBagConstraints.HORIZONTAL;
     }
     
-    int rows = 9;
-    int cols = 9;
+    int rows = 20;
+    int cols = 20;
 
     map = new JPanel[cols][rows];
     

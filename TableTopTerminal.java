@@ -23,10 +23,15 @@ public class TableTopTerminal{
         // InitObject tempObject = new InitObject();
         //Title titleScreen = new Title();
 
-        chat = new ChatLog();
-		players = new Players();
+        if(args.length < 1){
+                System.out.println("Syntax: TableTopTerminal <Your name> <server or client> <server ip address>");
+                System.exit(1);
+        }
 
-		ConnectionManager manager = new ConnectionManager(chat, players);
+        chat = new ChatLog();
+	players = new Players();
+
+	ConnectionManager manager = new ConnectionManager(chat, players);
 		
         String name = args[0];
         String mode = args[1];
