@@ -1,19 +1,24 @@
+import java.io.IOException;
+import java.lang.Thread;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.lang.Thread;
-import java.io.IOException;
-import java.net.SocketException;
-import java.net.Socket;
-import java.net.ServerSocket;
+import tabletopterminal.InitObject;
 
 
 
 public class TableTopTerminal{
+        InitObject tempObject = new InitObject();
 	public static void main( String [] args){
 		//NICK - have your code start here, i need a filled initObject so i can start the connection manager from here
-
+                InitObject tempObject = new InitObject();
+                Title titleScreen = new Title();
+                
+                
 
 
 
@@ -53,14 +58,15 @@ public class TableTopTerminal{
 				manager.send(temp);
 				status++;
 				}
-				
-
 			}
 		}
 		System.out.println("DEBUG - END  LOOPS ");
 		manager.closeConnection();
+<<<<<<< Updated upstream
 
 		*/
 		
+//=======
+//>>>>>>> Stashed changes
 	}
 }
