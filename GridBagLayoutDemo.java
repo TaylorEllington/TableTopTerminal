@@ -24,12 +24,19 @@ public class GridBagLayoutDemo   implements Observer{
   static JPanel[][] map;
 
   static JEditorPane chatBoxTextPane;
+  static JEditorPane mapKeyTextPane;
   static ArrayList<Player> playerlist;
   static ConnectionManager connections;
   static String name;
+  static Color[] colorArray;
+  static String[] htmlColorArray;
   
 
   public GridBagLayoutDemo( ConnectionManager connections, String pname, Players players){
+
+    colorArray = new Color[] {Color.cyan, Color.green, Color.orange, Color.pink, Color.blue, Color.black, Color.red};
+    htmlColorArray = new String[] {"cyan", "green", "orange", "pink", "blue", "black", "red"};
+
     name = pname;
     this.connections = connections;
     
@@ -55,8 +62,8 @@ public class GridBagLayoutDemo   implements Observer{
     for(int i =0 ; i < playerlist.size(); i++ ){
         //if found move
         if(playerlist.get(i).playerName.equals(name) ){
-            map[playerlist.get(i).getCurrentX()][playerlist.get(i).getCurrentY()].setBackground(Color.WHITE);
-            map[x][y].setBackground(Color.BLACK);
+            map[playerlist.get(i).getCurrentX()][playerlist.get(i).getCurrentY()].setBackground(Color.LIGHT_GRAY);
+            map[x][y].setBackground(colorArray[i]);
             playerlist.get(i).setCurrentX(x);
             playerlist.get(i).setCurrentY(y);
             found = true;
@@ -69,8 +76,9 @@ public class GridBagLayoutDemo   implements Observer{
             Player temp = new Player();
             temp.setCurrentY(y);
             temp.setCurrentX(x);
-            map[x][y].setBackground(Color.BLACK);
+            map[x][y].setBackground(colorArray[playerlist.size()]);
             temp.playerName = name;
+            mapKeyTextPane.setText(mapKeyTextPane.getText() + "<font color = \""+htmlColorArray[playerlist.size()] +"\">" + name +" </font>\n");
             playerlist.add(temp);
         }
         connections.serverEchoPlayerCoord(name, x, y);
@@ -131,10 +139,10 @@ public class GridBagLayoutDemo   implements Observer{
     		tempPanel.setRow(i);
     		tempPanel.setColumn(j);
             map[j][i] = tempPanel;
-    		
+    		tempPanel.setBackground(Color.LIGHT_GRAY);
     		if ((i+j) % 2 == 0){
     			
-    			//tempPanel.setBackground(Color.CYAN);
+    			
     			//tempPanel.setColor("CYAN");
     			
     			//TEST CODE
@@ -225,7 +233,7 @@ public class GridBagLayoutDemo   implements Observer{
     JLabel mapKeyTextPaneLabel = new JLabel("Player Key");
     mapKeyPanel.add(mapKeyTextPaneLabel);
     
-    JEditorPane mapKeyTextPane = new JEditorPane();
+    mapKeyTextPane = new JEditorPane();
     mapKeyTextPane.setPreferredSize(new Dimension(190, 325));
     mapKeyPanel.add(mapKeyTextPane);
     
